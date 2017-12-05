@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api
+
+
+class service(models.Model):
+     _name = 'la_costera.vehicle'
+
+     id = fields.Char(integer="ID", required=True)
+     licensePlateNumber = fields.Char(string="License Plate Number", required=True)
+     vin= fields.Char(string="VIN", required=True)
+     action= fields.Char(string="Action", required=True)
+     startdate = fields.Datetime(string="Start Date", required=False)
+     finishdate = fields.Datetime(string="Finish Date", required=False)
+
+#     @api.depends('value')
+#     def _value_pc(self):
+#         self.value2 = float(self.value) / 100

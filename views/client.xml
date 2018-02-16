@@ -17,12 +17,69 @@
       </field>
     </record>
 
+
+    <record model="ir.ui.view" id="la_costera.client_form">
+      <field name="name">laCostera form</field>
+      <field name="model">la_costera.client</field>
+      <field name="arch" type="xml">
+        <form><sheet><group>
+          <field name="id"/>
+          <field name="tin"/>
+          <field name="name"/>
+          <field name="surname"/>
+          <field name="telephone"/>
+          <field name="type"/>
+        </group></sheet></form>
+      </field>
+    </record>
+
+<record model="ir.ui.view" id="la_costera.client_kanban">
+      <field name="name">laCostera list</field>
+      <field name="model">la_costera.client</field>
+      <field name="arch" type="xml">
+        <kanban>
+            <templates>
+                <t t-name="kanban-box">
+                    <div t-attf-class="">
+                        <a type="open">
+                            <img 
+                                class="oe_kanban_image" 
+                                t-att-src="kanban_image(
+                                    'la_costera.vehicle', 
+                                    'photo', 
+                                    record.id.value)" 
+                                style="width:200px;"
+                            />
+                        </a>
+                        <div t-attf-class="oe_kanban_content">
+                            <h4>
+                                <a type="edit">
+                                    <field name="name">
+                                    </field>
+                                </a>
+                            </h4>
+                            <ul>
+                            </ul>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+          <field name="id"/>
+          <field name="tin"/>
+          <field name="name"/>
+          <field name="surname"/>
+          <field name="telephone"/>
+          <field name="type"/>
+        </kanban>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
     <!-- title of data table -->
     <record model="ir.actions.act_window" id="la_costera.client_window">
       <field name="name">Clients list</field>
       <field name="res_model">la_costera.client</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <!-- server action to the one above -->
@@ -41,7 +98,7 @@
     -->
 
     <!-- Top menu item -->
-    <menuitem name="La Costera" id="la_costera.menu_root"/>
+    <!-- <menuitem name="La Costera" id="la_costera.menu_root"/> -->
 
     <menuitem name="Clients" id="la_costera.menu_clients" parent="la_costera.menu_root"/>
 

@@ -10,11 +10,29 @@
           <field name="id"/>
           <field name="name"/>
           <field name="cost"/>
+          <field name="price"/>
           <field name="startdate"/>
           <field name="finishdate"/>
           <field name="worker"/>
           <field name="product"/>
         </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="la_costera.action_form">
+      <field name="name">laCostera form</field>
+      <field name="model">la_costera.action</field>
+      <field name="arch" type="xml">
+        <form><sheet><group>
+          <field name="id"/>
+          <field name="name"/>
+          <field name="cost"/>
+          <field name="price"/>
+          <field name="startdate"/>
+          <field name="finishdate"/>
+          <field name="worker"/>
+          <field name="product"/>
+        </group></sheet></form>
       </field>
     </record>
 

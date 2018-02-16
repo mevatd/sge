@@ -14,7 +14,7 @@ class worker(models.Model):
      name= fields.Char(string="Name", required=True)
      surname = fields.Char(string="Surname", required=True)
      telephone = fields.Char(integer="Telephone Nº", required=True)
-     action = fields.Many2one('la_costera.action')
+     action = fields.Many2many('la_costera.action')
 
 #     @api.depends('value')
 #     def _value_pc(self):

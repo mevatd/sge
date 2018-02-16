@@ -9,13 +9,83 @@
       <field name="arch" type="xml">
         <tree>
           <field name="id"/>
+          <field name="template"/>
+          <field name="name"/>
           <field name="vehicle"/>
-          <field name="action"/>
+          <field name="todo"/>
+          <field name="progress" widget="progressbar"/>
+          <field name="price"/>
           <field name="startdate"/>
           <field name="finishdate"/>
+          <field name="hiddenComputed" invisible='True'/>
+          <field name="hiddenStatic" invisible='True'/>
         </tree>
       </field>
     </record>
+
+    <record model="ir.ui.view" id="la_costera.service_form">
+      <field name="name">laCostera form</field>
+      <field name="model">la_costera.service</field>
+      <field name="arch" type="xml">
+        <form><sheet>
+        <button name="new_tmpl_service" type="object" string="New Service" class="oe_highlight"/>
+          <group>
+            <field name="id"/>
+            <field name="template"/>
+            <field name="name"/>
+            <field name="vehicle"/>
+            <field name="photo" widget="image" class="oe_avatar"/>
+            <field name="todo" context="{'default_service':active_id}"/>
+            <field name="progress" widget="progressbar"/>
+            <field name="price"/>
+            <field name="startdate"/>
+            <field name="finishdate"/>
+        </group>
+        </sheet></form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="la_costera.service_calendar">
+      <field name="name">laCostera calendar</field>
+      <field name="model">la_costera.service</field>
+      <field name="arch" type="xml">
+          <calendar 
+              string="Service Calendar"
+              date_start="startdate"
+              date_stop="finishdate"
+              color="name">
+              <field name="name"/>
+              <field name="vehicle"/>
+          </calendar>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="la_costera.service_default">
+      <field name="name">laCostera search default</field>
+      <field name="model">la_costera.service</field>
+      <field name="arch" type="xml">
+          <search>
+              <field name="vehicle"/>
+              <field name="hiddenStatic"/>
+              <field name="hiddenComputed"/>
+              <filter
+                  name="progress"
+                  string="Completed Services"
+                  domain="[('hiddenStatic', '=', False)]"/>
+
+              <filter name="group_by_vehicle"
+                      string="Vehicle"
+                      context="{'group_by': 'vehicle'}"/>
+
+              <filter
+                  name="client_type_company"
+                  string="Companies"
+                  domain="[('vehicle.client.type', '=', True)]"/>
+          </search>
+      </field>
+    </record>
+
+
 
     <!-- actions opening views on models -->
     <!-- title of data table -->
@@ -23,7 +93,8 @@
     <record model="ir.actions.act_window" id="la_costera.service_window">
       <field name="name">Services list</field>
       <field name="res_model">la_costera.service</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,calendar</field>
+      <field name="context">{'search_default_progress' : 1}</field>
     </record>
 
     <!-- server action to the one above -->
@@ -42,7 +113,7 @@
     -->
 
     <!-- Top menu item -->
-    <menuitem name="La Costera" id="la_costera.menu_root"/>
+    <!--<menuitem name="La Costera" id="la_costera.menu_root"/> -->
 
     <menuitem name="Services" id="la_costera.menu_services" parent="la_costera.menu_root"/>
 

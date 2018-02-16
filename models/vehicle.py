@@ -7,12 +7,16 @@ class service(models.Model):
      _name = 'la_costera.vehicle'
 
      id = fields.Char(integer="ID", required=True)
+     name = fields.Char(compute='_get_composed_name')
      licensePlateNumber = fields.Char(string="License Plate Number", required=True)
-     vin= fields.Char(string="VIN", required=True)
-     action= fields.Char(string="Action", required=True)
-     startdate = fields.Datetime(string="Start Date", required=False)
-     finishdate = fields.Datetime(string="Finish Date", required=False)
+     vin = fields.Char(string="VIN", required=True)
+     brand = fields.Char(string="Brand", required=True)
+     model = fields.Char(string="Model", required=True)
+     photo = fields.Binary()
+     service = fields.One2many('la_costera.service', 'vehicle')
+     client = fields.Many2one('la_costera.client', 'Client')
 
-#     @api.depends('value')
-#     def _value_pc(self):
-#         self.value2 = float(self.value) / 100
+     @api.depends('brand', 'model', 'licensePlateNumber')
+     def _get_composed_name(self):
+         for s in self:
+             s.name = s.brand + "," + s.model + "," + s.licensePlateNumber

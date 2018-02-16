@@ -14,6 +14,18 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="la_costera.product_form">
+      <field name="name">laCostera list</field>
+      <field name="model">la_costera.product</field>
+      <field name="arch" type="xml">
+        <form><sheet><group>
+          <field name="id"/>
+          <field name="name"/>
+          <field name="cost"/>
+        </group></sheet></form>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
     <!-- title of data table -->
     <record model="ir.actions.act_window" id="la_costera.product_window">
@@ -38,7 +50,7 @@
     -->
 
     <!-- Top menu item -->
-    <menuitem name="La Costera" id="la_costera.menu_root"/>
+    <!-- <menuitem name="La Costera" id="la_costera.menu_root"/> -->
 
     <!-- menu categories -->
     <!-- ACTIONS -->
